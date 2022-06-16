@@ -16,6 +16,8 @@ from bert4keras.snippets import sequence_padding
 from bert4keras.snippets import text_segmentate
 from bert4keras.snippets import AutoRegressiveDecoder
 from bert4keras.snippets import uniout
+import warnings
+warnings.filterwarnings("ignore")
 
 # 基本信息
 maxlen = 32
@@ -25,9 +27,9 @@ epochs = 10000
 corpus_path = 'data_sample.json'
 
 # bert配置
-config_path = '/root/kg/bert/chinese_L-12_H-768_A-12/bert_config.json'
-checkpoint_path = '/root/kg/bert/chinese_L-12_H-768_A-12/bert_model.ckpt'
-dict_path = '/root/kg/bert/chinese_L-12_H-768_A-12/vocab.txt'
+config_path = 'bert/chinese_simbert_L-4_H-312_A-12/bert_config.json'
+checkpoint_path = 'bert/chinese_simbert_L-4_H-312_A-12/bert_model.ckpt'
+dict_path = 'bert/chinese_simbert_L-4_H-312_A-12/vocab.txt'
 
 # 加载并精简词表，建立分词器
 token_dict, keep_tokens = load_vocab(
@@ -177,7 +179,7 @@ def gen_synonyms(text, n=100, k=20):
     """"含义： 产生sent的n个相似句，然后返回最相似的k个。
     做法：用seq2seq生成，并用encoder算相似度并排序。
     效果：
-        >>> gen_synonyms(u'微信和支付宝哪个好？')
+        gen_synonyms(u'微信和支付宝哪个好？')
         [
             u'微信和支付宝，哪个好?',
             u'微信和支付宝哪个好',
@@ -250,6 +252,6 @@ if __name__ == '__main__':
         callbacks=[evaluator]
     )
 
-else:
-
-    model.load_weights('./latest_model.weights')
+# else:
+#
+#     model.load_weights('./latest_model.weights')
